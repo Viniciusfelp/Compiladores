@@ -15,26 +15,71 @@ public class RPNStacker {
         while (st.hasMoreTokens()) {
             String token = st.nextToken();
             if (token.equals("+")) {
-                int a = Integer.parseInt(stack.pop());
-                int b = Integer.parseInt(stack.pop());
-                stack.push(String.valueOf(a + b));
+                String a = stack.pop();
+                String b = stack.pop();
+                if (!a.matches("[0-9]+")){
+                    throw new IllegalArgumentException("Error: Unexpected character: " + a);
+                }else{
+                    if (b.matches("[0-9]+")){
+                        System.out.println("Token [type=NUM, lexeme="+a+"]\n" +
+                                "Token [type=NUM, lexeme="+b+"]\n" +
+                                "Token [type=PLUS, lexeme="+token+"]\n");
+                        stack.push(String.valueOf(Integer.parseInt(a) + Integer.parseInt(b)));
+                    } else {
+                        throw new IllegalArgumentException("Error: Unexpected character: " + b);
+                    }
+                }
+
             } else if (token.equals("*")) {
-                int a = Integer.parseInt(stack.pop());
-                int b = Integer.parseInt(stack.pop());
-                stack.push(String.valueOf(a*b));
+                String a = stack.pop();
+                String b = stack.pop();
+                if (!a.matches("[0-9]+")){
+                    throw new IllegalArgumentException("Error: Unexpected character: " + a);
+                }else{
+                    if (b.matches("[0-9]+")){
+                        System.out.println("Token [type=NUM, lexeme="+a+"]\n" +
+                                "Token [type=NUM, lexeme="+b+"]\n" +
+                                "Token [type=TIMES, lexeme="+token+"]\n");
+                        stack.push(String.valueOf(Integer.parseInt(a) * Integer.parseInt(b)));
+                    } else {
+                        throw new IllegalArgumentException("Error: Unexpected character: " + b);
+                    }
+                }
             } else if (token.equals("-")) {
-                int a = Integer.parseInt(stack.pop());
-                int b = Integer.parseInt(stack.pop());
-                stack.push(String.valueOf(b - a));
+                String a = stack.pop();
+                String b = stack.pop();
+                if (!a.matches("[0-9]+")){
+                    throw new IllegalArgumentException("Error: Unexpected character: " + a);
+                }else{
+                    if (b.matches("[0-9]+")){
+                        System.out.println("Token [type=NUM, lexeme="+a+"]\n" +
+                                "Token [type=NUM, lexeme="+b+"]\n" +
+                                "Token [type=MINUS, lexeme="+token+"]\n");
+                        stack.push(String.valueOf(Integer.parseInt(a) - Integer.parseInt(b)));
+                    } else {
+                        throw new IllegalArgumentException("Error: Unexpected character: " + b);
+                    }
+                }
             } else if (token.equals("/")) {
-                int a = Integer.parseInt(stack.pop());
-                int b = Integer.parseInt(stack.pop());
-                stack.push(String.valueOf(b / a));
-            } else {
+                String a = stack.pop();
+                String b = stack.pop();
+                if (!a.matches("[0-9]+")){
+                    throw new IllegalArgumentException("Error: Unexpected character: " + a);
+                }else{
+                    if (b.matches("[0-9]+")){
+                        System.out.println("Token [type=NUM, lexeme="+a+"]\n" +
+                                "Token [type=NUM, lexeme="+b+"]\n" +
+                                "Token [type=DIVIDE, lexeme="+token+"]\n");
+                        stack.push(String.valueOf(Integer.parseInt(a) / Integer.parseInt(b)));
+                    } else {
+                        throw new IllegalArgumentException("Error: Unexpected character: " + b);
+                    }
+                }
+        } else {
                 stack.push(token);
             }
 
         }
-        System.out.println(stack.pop());
+        System.out.println("Saida: "+stack.pop());
     }
 }
