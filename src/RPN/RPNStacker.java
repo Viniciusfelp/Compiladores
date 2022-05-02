@@ -17,14 +17,15 @@ public class RPNStacker {
             if (token.equals("+")) {
                 String a = stack.pop();
                 String b = stack.pop();
-                if (!a.matches("[0-9]+")){
+                //matches the pattern of a number with optional decimal point
+                if (!a.matches("[0-9]+(\\.[0-9]+)?")) {
                     throw new IllegalArgumentException("Error: Unexpected character: " + a);
                 }else{
-                    if (b.matches("[0-9]+")){
-                        System.out.println("Token [type=NUM, lexeme="+a+"]\n" +
-                                "Token [type=NUM, lexeme="+b+"]\n" +
-                                "Token [type=PLUS, lexeme="+token+"]\n");
-                        stack.push(String.valueOf(Integer.parseInt(a) + Integer.parseInt(b)));
+                    if (b.matches("[0-9]+(\\.[0-9]+)?")){
+                        System.out.println(new Token(TokenType.NUM, a));
+                        System.out.println(new Token(TokenType.NUM, b));
+                        System.out.println(new Token(TokenType.PLUS, token));
+                        stack.push(String.valueOf(Double.parseDouble(a) + Double.parseDouble(b)));
                     } else {
                         throw new IllegalArgumentException("Error: Unexpected character: " + b);
                     }
@@ -33,14 +34,14 @@ public class RPNStacker {
             } else if (token.equals("*")) {
                 String a = stack.pop();
                 String b = stack.pop();
-                if (!a.matches("[0-9]+")){
+                if (!a.matches("[0-9]+(\\.[0-9]+)?")){
                     throw new IllegalArgumentException("Error: Unexpected character: " + a);
                 }else{
-                    if (b.matches("[0-9]+")){
-                        System.out.println("Token [type=NUM, lexeme="+a+"]\n" +
-                                "Token [type=NUM, lexeme="+b+"]\n" +
-                                "Token [type=TIMES, lexeme="+token+"]\n");
-                        stack.push(String.valueOf(Integer.parseInt(a) * Integer.parseInt(b)));
+                    if (b.matches("[0-9]+(\\.[0-9]+)?")){
+                        System.out.println(new Token(TokenType.NUM, a));
+                        System.out.println(new Token(TokenType.NUM, b));
+                        System.out.println(new Token(TokenType.STAR, token));
+                        stack.push(String.valueOf(Double.parseDouble(a) * Double.parseDouble(b)));
                     } else {
                         throw new IllegalArgumentException("Error: Unexpected character: " + b);
                     }
@@ -48,14 +49,14 @@ public class RPNStacker {
             } else if (token.equals("-")) {
                 String a = stack.pop();
                 String b = stack.pop();
-                if (!a.matches("[0-9]+")){
+                if (!a.matches("[0-9]+(\\.[0-9]+)?")){
                     throw new IllegalArgumentException("Error: Unexpected character: " + a);
                 }else{
-                    if (b.matches("[0-9]+")){
-                        System.out.println("Token [type=NUM, lexeme="+a+"]\n" +
-                                "Token [type=NUM, lexeme="+b+"]\n" +
-                                "Token [type=MINUS, lexeme="+token+"]\n");
-                        stack.push(String.valueOf(Integer.parseInt(a) - Integer.parseInt(b)));
+                    if (b.matches("[0-9]+(\\.[0-9]+)?")){
+                        System.out.println(new Token(TokenType.NUM, a));
+                        System.out.println(new Token(TokenType.NUM, b));
+                        System.out.println(new Token(TokenType.MINUS, token));
+                        stack.push(String.valueOf(Double.parseDouble(a) - Double.parseDouble(b)));
                     } else {
                         throw new IllegalArgumentException("Error: Unexpected character: " + b);
                     }
@@ -63,19 +64,19 @@ public class RPNStacker {
             } else if (token.equals("/")) {
                 String a = stack.pop();
                 String b = stack.pop();
-                if (!a.matches("[0-9]+")){
+                if (!a.matches("[0-9]+(\\.[0-9]+)?")){
                     throw new IllegalArgumentException("Error: Unexpected character: " + a);
                 }else{
-                    if (b.matches("[0-9]+")){
-                        System.out.println("Token [type=NUM, lexeme="+a+"]\n" +
-                                "Token [type=NUM, lexeme="+b+"]\n" +
-                                "Token [type=DIVIDE, lexeme="+token+"]\n");
-                        stack.push(String.valueOf(Integer.parseInt(a) / Integer.parseInt(b)));
+                    if (b.matches("[0-9]+(\\.[0-9]+)?")){
+                        System.out.println(new Token(TokenType.NUM, a));
+                        System.out.println(new Token(TokenType.NUM, b));
+                        System.out.println(new Token(TokenType.SLASH, token));
+                        stack.push(String.valueOf(Double.parseDouble(a) / Double.parseDouble(b)));
                     } else {
                         throw new IllegalArgumentException("Error: Unexpected character: " + b);
                     }
                 }
-        } else {
+            } else {
                 stack.push(token);
             }
 
