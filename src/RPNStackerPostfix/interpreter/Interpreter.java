@@ -17,17 +17,32 @@
 package RPNStackerPostfix.interpreter;
 
 import RPNStackerPostfix.ast.Expr;
-import RPNStackerPostfix.ast.Expr;
+import RPNStackerPostfix.lexer.LexError;
+
+import java.util.HashMap;
 
 /**
  * @author Henrique Rebelo
  */
 public class Interpreter implements Expr.Visitor<Integer> {
+	public final HashMap<String, String> env;
+	public Interpreter(HashMap<String, String> env){
+		this.env = env;
+	}
 
 	public int interp(Expr expression) {
 		int value = evaluate(expression);
 		
 		return value;
+	}
+
+	@Override
+	public Integer visitIdExpr(Expr.Id expr) throws LexError {
+		try {
+			return Integer.parseInt(env.get(expr.id));
+		} catch (Exception e){
+			throw new LexError(expr.id + " cannot be resolved!");
+		}
 	}
 
 	@Override
@@ -42,20 +57,20 @@ public class Interpreter implements Expr.Visitor<Integer> {
 		int result = 0;
 
 		switch (expr.operator.type) {
-		case PLUS:
-			result = left + right;
-			break;
-		case MINUS:
-			result = left - right;
-			break;
-		case SLASH:
-			result = left / right;
-			break;
-		case STAR:
-			result = left * right;
-			break;
-		default:
-			break;
+			case PLUS:
+				result = left + right;
+				break;
+			case MINUS:
+				result = left - right;
+				break;
+			case SLASH:
+				result = left / right;
+				break;
+			case STAR:
+				result = left * right;
+				break;
+			default:
+				break;
 		}
 
 		return result;

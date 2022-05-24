@@ -2,6 +2,7 @@ package RPNStackerPostfix.ast;
 
 import java.util.Stack;
 
+import RPNStackerPostfix.ast.Expr.Id;
 import RPNStackerPostfix.ast.Expr.Binop;
 import RPNStackerPostfix.ast.Expr.Number;
 
@@ -9,6 +10,10 @@ public class AstPrinter implements Expr.Visitor<String>{
 
 	public String print(Expr expr) {
 		return expr.accept(this);
+	}
+	@Override
+	public String visitIdExpr(Id expr) {
+		return expr.id.toString();
 	}
 
 	@Override

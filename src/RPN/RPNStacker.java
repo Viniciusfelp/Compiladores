@@ -17,7 +17,6 @@ public class RPNStacker {
             if (token.equals("+")) {
                 String a = stack.pop();
                 String b = stack.pop();
-                //matches the pattern of a number with optional decimal point
                 if (!a.matches("[0-9]+(\\.[0-9]+)?")) {
                     throw new IllegalArgumentException("Error: Unexpected character: " + a);
                 }else{
