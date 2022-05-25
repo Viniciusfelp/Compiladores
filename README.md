@@ -1,3 +1,3 @@
 # Compiladores
 
-Respositorio reservado para as atividades da disciplina
+Repositorio reservado para as atividades da disciplina
